@@ -1,0 +1,97 @@
+package firsttest;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Set;
+import java.util.function.Function;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+public class FirstTestCase {
+
+	public static void main(String[] args) throws InterruptedException, MalformedURLException {
+	
+		
+		//Launch browser
+		
+		//ChromeDriver driver = new ChromeDriver();
+		  WebDriver driver = new ChromeDriver();  //recommended
+		
+		
+	
+		driver.get("https://demo.opencart.com/");
+		driver.manage().window().maximize();
+		
+		//Validate title "Your Store"
+		String act_title=driver.getTitle();
+		
+		if(act_title.equals("Your Store"))
+		{
+			System.out.println("Test Passed");
+		}else {
+			System.out.println("System Failed");
+		}
+		
+
+		//Close Browser
+		 
+		driver.close();
+		//driver.quit();
+		
+		
+		
+		
+		
+		//Navigation
+		
+	//	 driver.navigate().to("https://demo.nopcommerce.com/");
+		
+	//	 URL myurl=new URL("https://demo.nopcommerce.com/");
+	//	 driver.navigate().to(myurl);
+		
+//		driver.navigate().to("https://demo.nopcommerce.com/");
+	//	driver.navigate().to("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+	
+	//	driver.navigate().back();
+	//	System.out.println(driver.getCurrentUrl());
+		
+	//	driver.navigate().forward();
+	//	System.out.println(driver.getCurrentUrl());
+		
+	//	driver.navigate().refresh();
+		
+		driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+		
+		Thread.sleep(5000);
+		
+		driver.findElement(By.xpath("//a[normalize-space()='OrangeHRM, Inc']")).click();
+		
+		Set<String> windowsIDs = driver.getWindowHandles();
+		
+		List<String> windowList=new ArrayList(windowsIDs);
+		
+		String parentID=windowList.get(0);
+		String childID=windowList.get(1);
+		
+		
+		driver.switchTo().window(childID);
+		System.out.println(driver.getTitle());
+		
+		driver.switchTo().window(parentID);
+		System.out.println(driver.getTitle());
+		
+		
+	}
+
+}
